@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAdds } from "./service";
+import Add from "./components/add";
 
 function AdvertsPage() {
   const [adds, setAdd] = useState([]);
@@ -13,12 +14,9 @@ function AdvertsPage() {
   return (
     <div>
       <ul>
-        {adds.map((add) => (
-          <li key={add.id}>
-            <div>{add.name}</div>
-            <div>{add.sale}</div>
-            <div>{add.price}</div>
-            <div>{add.tags.join(", ")}</div>
+        {adds.map(({ id, ...add }) => (
+          <li key={id}>
+            <Add {...add} />
           </li>
         ))}
       </ul>
