@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAdds } from "./service";
 
 function AdvertsPage() {
   const [adds, setAdd] = useState([]);
 
-  getAdds().then((adds) => console.log(adds));
+  useEffect(() => {
+    getAdds().then((add) => setAdd(add));
+
+    return;
+  }, []);
 
   return (
     <div>
       <ul>
         {adds.map((add) => (
-          <li key={add.id}>{add.content}</li>
+          <li key={add.id}>{add.name}</li>
         ))}
       </ul>
     </div>
