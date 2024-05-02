@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAdds } from "./service";
 import Add from "./components/add";
+import { Link } from "react-router-dom";
 
 function AdvertsPage() {
   const [adds, setAdd] = useState([]);
@@ -16,7 +17,9 @@ function AdvertsPage() {
       <ul>
         {adds.map(({ id, ...add }) => (
           <li key={id}>
-            <Add {...add} />
+            <Link to={`/adverts/${id}`}>
+              <Add {...add} />
+            </Link>
           </li>
         ))}
       </ul>

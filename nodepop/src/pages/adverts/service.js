@@ -9,3 +9,8 @@ export const getAdds = () => {
 export const postAdds = () => {
   return client.post(apiUrl);
 };
+
+export const getAdd = (id) => {
+  const url = `${apiUrl}/${id}`;
+  return client.get(url);
+};

@@ -1,6 +1,7 @@
 export default function Add({ name, sale, price, tags, photo }) {
   let className = "false";
   let content = "";
+  let key = 1;
 
   if (sale === true) {
     className = "true";
@@ -25,9 +26,12 @@ export default function Add({ name, sale, price, tags, photo }) {
       </div>
       <div className="tags-container">
         <ul>
-          {tags.map((tag) => {
-            <li className="tag">{tag}</li>;
-          })}
+          {tags &&
+            tags.map((tag) => (
+              <li key={key++} className="tag">
+                {tag}
+              </li>
+            ))}
         </ul>
       </div>
     </section>

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "./context";
 import { login } from "./service";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const { onLogin } = useAuth();
+  const location = useLocation();
+  const go = useNavigate();
 
   const [inputValues, setInputValues] = useState({
     email: "",
@@ -23,6 +26,9 @@ export default function LoginPage() {
     await login(inputValues);
 
     onLogin();
+
+    const to = location.state?.from || "/";
+    go(to, { relative: true });
   };
 
   const disabledButton = !email || !password;
