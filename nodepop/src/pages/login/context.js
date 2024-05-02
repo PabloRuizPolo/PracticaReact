@@ -10,7 +10,7 @@ export const AuthContextProvider = ({ isAlreadyLogged, children }) => {
   const authContextValue = {
     isLogged,
     onLogin: changeToLogin,
-    onLogput: changeToLogout,
+    onLogout: changeToLogout,
   };
   return (
     <AuthContext.Provider value={authContextValue}>
