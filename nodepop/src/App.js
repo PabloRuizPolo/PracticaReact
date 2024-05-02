@@ -11,7 +11,14 @@ function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/404" element={<div>404</div>} />
+      <Route
+        path="/404"
+        element={
+          <RequiereAuth>
+            <div>404</div>
+          </RequiereAuth>
+        }
+      />
 
       <Route path="/" element={<Navigate to={"/adverts"} />} />
       <Route path="*" element={<Navigate to={"/404"} />} />

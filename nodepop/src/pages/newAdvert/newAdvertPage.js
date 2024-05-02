@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { postAdds } from "../adverts/service";
 import { useAuth } from "../login/context";
+import { useNavigate } from "react-router-dom";
 
 function NewAdvert() {
   const { onLogin } = useAuth();
+  const go = useNavigate();
 
   const [inputValues, setInputValues] = useState({
     name: "",
@@ -43,6 +45,7 @@ function NewAdvert() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(inputValues);
+    go("/");
   };
 
   const disabledButton = !name || !sale || !price || !tags;
