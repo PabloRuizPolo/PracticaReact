@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getAdd } from "./service";
 import Add from "./components/add";
 import DeleteAdd from "./components/DeleteBotton";
@@ -11,6 +11,7 @@ export default function AdvertPage() {
   const [add, setAdd] = useState(null);
   const [confirm, setConfirm] = useState(false);
   const params = useParams();
+  const go = useNavigate();
 
   const onclick = () => {
     setConfirm(true);
@@ -18,11 +19,18 @@ export default function AdvertPage() {
 
   useEffect(() => {
     async function getAddToRender() {
-      const add = await getAdd(params.id);
-      setAdd(add);
+      try {
+        const add = await getAdd(params.id);
+        setAdd(add);
+      } catch (error) {
+        if (error.status === 404) {
+          go("/404");
+        }
+      }
     }
+
     getAddToRender();
-  }, [params.id]);
+  }, [params.id, go]);
 
   return (
     <div>

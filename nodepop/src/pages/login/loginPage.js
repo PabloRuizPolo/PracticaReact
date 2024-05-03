@@ -8,6 +8,9 @@ export default function LoginPage() {
   const location = useLocation();
   const go = useNavigate();
 
+  const [error, setError] = useState(null);
+  const [isFetch, setIsFetch] = useState(false);
+
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
@@ -24,20 +27,30 @@ export default function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login(inputValues);
 
-    onLogin();
-
-    const to = location.state?.from || "/";
-    go(to, { relative: true });
+    try {
+      setIsFetch(true);
+      await login(inputValues);
+      setIsFetch(false);
+      onLogin();
+      const to = location.state?.from || "/";
+      go(to, { relative: true });
+    } catch (error) {
+      setIsFetch(false);
+      setError(error);
+    }
   };
 
-  const disabledButton = !email || !password;
+  const quitError = () => {
+    setError(null);
+  };
+
+  const disabledButton = !email || !password || isFetch;
 
   return (
     <div>
       <h2 className="title">Inicia sesión en Nodepop</h2>
-      <form className="loginForm" onSubmit={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit} onClick={quitError}>
         <div className="formField">
           <label className="formField-label">Email</label>
           <input
@@ -69,6 +82,7 @@ export default function LoginPage() {
           Entrar
         </button>
       </form>
+      {error && <div onClick={quitError}>{error.message}</div>}
     </div>
   );
 }
