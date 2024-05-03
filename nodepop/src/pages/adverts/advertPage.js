@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAdd } from "./service";
 import Add from "./components/add";
+import Layout from "../../components/Layout";
 
 export default function AdvertPage() {
   const [add, setAdd] = useState(null);

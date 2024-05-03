@@ -5,6 +5,7 @@ import LoginPage from "./pages/login/loginPage";
 import NewAdvert from "./pages/newAdvert/newAdvertPage";
 import AdvertPage from "./pages/adverts/advertPage";
 import RequiereAuth from "./utils/requiereAuth";
+import Layout from "./components/Layout";
 
 function App() {
   const { isLogged } = useAuth();
@@ -14,23 +15,22 @@ function App() {
       <Route
         path="/404"
         element={
-          <RequiereAuth>
-            <div>404</div>
-          </RequiereAuth>
+          <Layout>
+            <RequiereAuth>
+              <div>404</div>
+            </RequiereAuth>
+          </Layout>
         }
       />
-
-      <Route path="/" element={<Navigate to={"/adverts"} />} />
-      <Route path="*" element={<Navigate to={"/404"} />} />
-
       <Route
         path="/adverts"
         element={
           <div>
-            <p>Aqui irá mi layout</p>
-            <RequiereAuth>
-              <Outlet />
-            </RequiereAuth>
+            <Layout>
+              <RequiereAuth>
+                <Outlet />
+              </RequiereAuth>
+            </Layout>
           </div>
         }
       >
@@ -38,6 +38,9 @@ function App() {
         <Route path="newAdd" element={<NewAdvert />} />
         <Route path=":id" element={<AdvertPage />} />
       </Route>
+
+      <Route path="/" element={<Navigate to={"/adverts"} />} />
+      <Route path="*" element={<Navigate to={"/404"} />} />
     </Routes>
   );
 }

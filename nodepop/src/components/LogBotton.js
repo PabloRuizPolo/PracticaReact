@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useAuth } from "../pages/login/context";
 import { logout } from "../pages/login/service";
 

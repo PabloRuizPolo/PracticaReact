@@ -8,7 +8,10 @@ import storage from "../../utils/storage";
 export const login = (credentials) => {
   return client.post("/api/auth/login", credentials).then(({ accessToken }) => {
     setAuthorization(accessToken);
-    storage.set("auth", accessToken);
+
+    if (credentials.checkbox) {
+      storage.set("auth", accessToken);
+    }
   });
 };
 

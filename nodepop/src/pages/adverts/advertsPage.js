@@ -17,17 +17,15 @@ function AdvertsPage() {
   return (
     <div>
       {adds.length ? (
-        <Layout>
-          <ul>
-            {adds.map(({ id, ...add }) => (
-              <li key={id}>
-                <Link to={`/adverts/${id}`}>
-                  <Add {...add} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Layout>
+        <ul>
+          {adds.map(({ id, ...add }) => (
+            <li key={id}>
+              <Link to={`/adverts/${id}`}>
+                <Add {...add} />
+              </Link>
+            </li>
+          ))}
+        </ul>
       ) : (
         <NewAdvert />
       )}

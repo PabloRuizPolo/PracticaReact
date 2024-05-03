@@ -6,8 +6,8 @@ export const getAdds = () => {
   return client.get(apiUrl);
 };
 
-export const postAdds = () => {
-  return client.post(apiUrl);
+export const postAdds = (add) => {
+  return client.post(apiUrl, add);
 };
 
 export const getAdd = (id) => {

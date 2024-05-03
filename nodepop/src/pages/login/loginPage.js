@@ -11,8 +11,9 @@ export default function LoginPage() {
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
+    checkbox: false,
   });
-  const { email, password } = inputValues;
+  const { email, password, checkbox } = inputValues;
 
   const handleChange = (event) => {
     setInputValues((formValues) => ({
@@ -56,6 +57,13 @@ export default function LoginPage() {
             value={password}
             onChange={handleChange}
           ></input>
+          <label>Recordar Contraseña</label>
+          <input
+            type="checkbox"
+            name="checkbox"
+            value={checkbox}
+            onChange={handleChange}
+          />
         </div>
         <button type="submit" disabled={disabledButton}>
           Entrar

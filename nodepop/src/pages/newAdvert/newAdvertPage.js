@@ -11,10 +11,9 @@ function NewAdvert() {
     name: "",
     sale: false,
     price: 0,
-    tags: [], // Initialize tags as an empty array
+    tags: [],
     photo: "",
   });
-
   const { name, sale, price, tags, photo } = inputValues;
 
   const handleChange = (event) => {
@@ -43,11 +42,12 @@ function NewAdvert() {
   };
 
   const handleSubmit = (event) => {
+    const { name, sale, price, tags } = inputValues;
+    const newAdd = { name, sale, price, tags };
     event.preventDefault();
-    console.log(inputValues);
-    go("/");
+    postAdds(newAdd).then((add) => go(`/adverts/${add.id}`));
+    //go(`/adverts/${newAdd.id}`);
   };
-
   const disabledButton = !name || !sale || !price || !tags;
 
   return (
