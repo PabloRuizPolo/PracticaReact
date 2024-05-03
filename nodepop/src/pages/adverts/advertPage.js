@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getAdd } from "./service";
 import Add from "./components/add";
-import Layout from "../../components/Layout";
 import DeleteAdd from "./components/DeleteBotton";
+import LoadingMessage from "../../components/LoadingMessage";
 
 export default function AdvertPage() {
   const [add, setAdd] = useState(null);
@@ -19,8 +19,16 @@ export default function AdvertPage() {
 
   return (
     <div>
-      <Add {...add} />
-      <DeleteAdd {...add} />
+      {add ? (
+        <div>
+          <Add {...add} />
+          <DeleteAdd {...add} />
+        </div>
+      ) : (
+        <LoadingMessage>
+          <p>Cargando detalles del anuncio</p>
+        </LoadingMessage>
+      )}
     </div>
   );
 }
