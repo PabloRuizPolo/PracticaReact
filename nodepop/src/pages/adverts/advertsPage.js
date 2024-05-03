@@ -3,20 +3,25 @@ import { getAdds } from "./service";
 import Add from "./components/add";
 import { Link } from "react-router-dom";
 import NewAdvert from "../newAdvert/newAdvertPage";
-import Layout from "../../components/Layout";
 
 function AdvertsPage() {
   const [adds, setAdd] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getAdds().then((add) => setAdd(add));
+    getAdds().then((add) => {
+      setAdd(add);
+      setIsLoading(false);
+    });
 
     return;
   }, []);
 
   return (
     <div>
-      {adds.length ? (
+      {isLoading ? (
+        <p>Cargando anuncios</p>
+      ) : adds.length ? (
         <ul>
           {adds.map(({ id, ...add }) => (
             <li key={id}>
