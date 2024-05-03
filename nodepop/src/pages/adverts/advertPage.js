@@ -4,10 +4,17 @@ import { getAdd } from "./service";
 import Add from "./components/add";
 import DeleteAdd from "./components/DeleteBotton";
 import LoadingMessage from "../../components/LoadingMessage";
+import ConfirmButton from "../../components/ConfirmButton";
+import ConfirmLogic from "../../components/ConfirmLogic";
 
 export default function AdvertPage() {
   const [add, setAdd] = useState(null);
+  const [confirm, setConfirm] = useState(false);
   const params = useParams();
+
+  const onclick = () => {
+    setConfirm(true);
+  };
 
   useEffect(() => {
     async function getAddToRender() {
@@ -19,10 +26,16 @@ export default function AdvertPage() {
 
   return (
     <div>
-      {add ? (
+      {confirm ? (
+        <ConfirmLogic onAtrasClick={() => setConfirm(false)}>
+          <DeleteAdd {...add} />
+        </ConfirmLogic>
+      ) : add ? (
         <div>
           <Add {...add} />
-          <DeleteAdd {...add} />
+          <ConfirmButton onclick={onclick}>
+            <p>Borrar</p>
+          </ConfirmButton>
         </div>
       ) : (
         <LoadingMessage>

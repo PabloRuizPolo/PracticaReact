@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { deleteAdd } from "../service";
+import { useState } from "react";
 
 export default function DeleteAdd({ id }) {
   const go = useNavigate();
