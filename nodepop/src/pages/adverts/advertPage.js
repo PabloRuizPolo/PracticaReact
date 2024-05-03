@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getAdd } from "./service";
 import Add from "./components/add";
 import Layout from "../../components/Layout";
+import DeleteAdd from "./components/DeleteBotton";
 
 export default function AdvertPage() {
   const [add, setAdd] = useState(null);
@@ -19,6 +20,7 @@ export default function AdvertPage() {
   return (
     <div>
       <Add {...add} />
+      <DeleteAdd {...add} />
     </div>
   );
 }

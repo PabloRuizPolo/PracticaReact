@@ -14,3 +14,8 @@ export const getAdd = (id) => {
   const url = `${apiUrl}/${id}`;
   return client.get(url);
 };
+
+export const deleteAdd = (id) => {
+  const url = `${apiUrl}/${id}`;
+  return client.delete(url);
+};
