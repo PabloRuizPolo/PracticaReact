@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { deleteAdd } from "../service";
-import { useState } from "react";
+import Button from "../../../components/Button";
 
 export default function DeleteAdd({ id }) {
   const go = useNavigate();
@@ -10,5 +10,9 @@ export default function DeleteAdd({ id }) {
     go("/");
   };
 
-  return <button onClick={handleClick}>Borrar</button>;
+  return (
+    <Button $variant="main" onClick={handleClick}>
+      Borrar
+    </Button>
+  );
 }

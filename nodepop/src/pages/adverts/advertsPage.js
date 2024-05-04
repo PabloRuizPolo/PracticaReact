@@ -4,6 +4,7 @@ import Add from "./components/add";
 import { Link } from "react-router-dom";
 import NewAdvert from "../newAdvert/newAdvertPage";
 import LoadingMessage from "../../components/LoadingMessage";
+import "./advertsPage.css";
 
 function AdvertsPage() {
   const [adds, setAdds] = useState([]);
@@ -25,7 +26,7 @@ function AdvertsPage() {
           <p>Cargando Anuncios</p>
         </LoadingMessage>
       ) : adds.length ? (
-        <ul>
+        <ul className="adsContainer">
           {adds.map(({ id, ...add }) => (
             <li key={id}>
               <Link to={`/adverts/${id}`}>

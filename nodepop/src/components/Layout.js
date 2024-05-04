@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./header";
+import Button from "./Button";
 
 export default function Layout({ tittle, children }) {
   return (
-    <div>
+    <div className="body">
       <Header />
-      <main>
+      <main style={{ padding: "5px" }}>
         <Link to={"/adverts/newAdd"}>
-          <button>Crear anuncio</button>
+          <Button type="submit" $variant="main">
+            Crear anuncio
+          </Button>
         </Link>
         <h2>{tittle}</h2>
         {children}

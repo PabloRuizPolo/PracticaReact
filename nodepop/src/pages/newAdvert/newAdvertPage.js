@@ -2,6 +2,9 @@ import { useState } from "react";
 import { postAdds } from "../adverts/service";
 import { useAuth } from "../login/context";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
+import "./newAdvertPage.css";
+import FormField from "../../components/FormField";
 
 function NewAdvert() {
   const { onLogin } = useAuth();
@@ -62,35 +65,57 @@ function NewAdvert() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} onClick={quitError}>
-        <label className="formField-label">name</label>
-        <input type="text" name="name" value={name} onChange={handleChange} />
+      <form
+        onSubmit={handleSubmit}
+        onClick={quitError}
+        className="form-container"
+      >
+        <FormField
+          type="text"
+          name="name"
+          label="Nombre del producto"
+          value={name}
+          onChange={handleChange}
+          className="newAdd-formField"
+        />
+
         <label className="formField-label">
-          Vender
+          ¿Que desea hacer?
           <input
+            className="formField-input"
             type="radio"
             name="accion"
             value={true}
             onChange={handleChange}
           />
-          Si
+          Vender
           <input
+            className="formField-input"
             type="radio"
             name="accion"
             value={false}
             onChange={handleChange}
           />
-          No
+          Comprar
         </label>
-        <label className="formField-label">Precio</label>
-        <input
+
+        <FormField
           type="number"
           name="price"
+          label="Precio euros"
           value={price}
           onChange={handleChange}
+          className="newAdd-formField"
         />
+
         <label className="formField-label">Tags</label>
-        <select name="tags" multiple value={tags} onChange={handleChange}>
+        <select
+          name="tags"
+          multiple
+          value={tags}
+          onChange={handleChange}
+          className="formField-input"
+        >
           <option value="lifestyle">lifestyle</option>
           <option value="mobile">mobile</option>
           <option value="work">work</option>
@@ -98,14 +123,20 @@ function NewAdvert() {
         </select>
         <label className="formField-label">Foto</label>
         <input
+          className="input-photo"
           type="file"
           name="photo"
           value={photo} // File inputs typically don't have a value
           onChange={handleChange}
         />
-        <button type="submit" disabled={disabledButton}>
-          Crear anuncio
-        </button>
+        <Button
+          type="submit"
+          $variant="main"
+          $place="newAdd"
+          disabled={disabledButton}
+        >
+          Crear
+        </Button>
       </form>
       {error && <div onClick={quitError}>{error.message}</div>}
     </div>

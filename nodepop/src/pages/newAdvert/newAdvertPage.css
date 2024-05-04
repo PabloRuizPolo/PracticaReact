@@ -1,0 +1,21 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 23px;
+  padding-top: 20px;
+}
+
+.input-photo {
+  width: 100%;
+}
+.formField-input {
+  border: solid 1px grey;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+select {
+  width: 100px;
+}

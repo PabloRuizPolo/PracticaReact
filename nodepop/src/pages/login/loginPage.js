@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useAuth } from "./context";
 import { login } from "./service";
 import { useLocation, useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
+import FormField from "../../components/FormField";
+import "./loginPage.css";
 
 export default function LoginPage() {
   const { onLogin } = useAuth();
@@ -48,39 +51,39 @@ export default function LoginPage() {
   const disabledButton = !email || !password || isFetch;
 
   return (
-    <div>
+    <div className="loginPage">
       <h2 className="title">Inicia sesión en Nodepop</h2>
       <form className="loginForm" onSubmit={handleSubmit} onClick={quitError}>
-        <div className="formField">
-          <label className="formField-label">Email</label>
-          <input
-            className="formField-input"
-            type="mail"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          ></input>
+        <FormField
+          type="mail"
+          name="email"
+          label="Email"
+          value={email}
+          onChange={handleChange}
+          className="formField"
+        />
+        <FormField
+          type="passqord"
+          name="password"
+          label="Contraseña"
+          value={password}
+          onChange={handleChange}
+          className="formField"
+        />
+        <FormField
+          type="checkbox"
+          name="checkbox"
+          label="Recordar Contraseña"
+          value={checkbox}
+          onChange={handleChange}
+          className="formField"
+        />
+
+        <div className="div-button">
+          <Button type="submit" disabled={disabledButton}>
+            Entrar
+          </Button>
         </div>
-        <div className="formField">
-          <label className="formField-label">Password</label>
-          <input
-            className="formField-input"
-            type="passqord"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          ></input>
-          <label>Recordar Contraseña</label>
-          <input
-            type="checkbox"
-            name="checkbox"
-            value={checkbox}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit" disabled={disabledButton}>
-          Entrar
-        </button>
       </form>
       {error && <div onClick={quitError}>{error.message}</div>}
     </div>

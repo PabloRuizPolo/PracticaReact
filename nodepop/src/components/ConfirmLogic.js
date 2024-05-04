@@ -1,9 +1,14 @@
-export default function ConfirmLogic({ children, onAtrasClick }) {
+import Button from "./Button";
+import "./confirmLogic.css";
+
+export default function ConfirmLogic({ children, onAtrasClick, className }) {
   return (
-    <div>
+    <div className="confirm-logic-div">
       <p>¿Estás seguro?</p>
       {children}
-      <button onClick={() => onAtrasClick()}>Atras</button>
+      <Button onClick={() => onAtrasClick()} $place={className}>
+        Atras
+      </Button>
     </div>
   );
 }

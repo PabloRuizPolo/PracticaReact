@@ -1,3 +1,5 @@
+import "./footer.css";
+
 export default function Footer() {
-  return <div>Buy with Cotrol</div>;
+  return <div className="footer">Buy with Control</div>;
 }

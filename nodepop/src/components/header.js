@@ -4,6 +4,7 @@ import LogBotton from "./LogBotton";
 import { useState } from "react";
 import ConfirmButton from "./ConfirmButton";
 import ConfirmLogic from "./ConfirmLogic";
+import "./header.css";
 
 export default function Header() {
   const [confirm, setConfirm] = useState(false);
@@ -15,16 +16,21 @@ export default function Header() {
   return (
     <div>
       {confirm ? (
-        <ConfirmLogic onAtrasClick={() => setConfirm(false)}>
-          <LogBotton />
-        </ConfirmLogic>
+        <div className="logout-confirm-container">
+          <ConfirmLogic
+            className="confirm-logic"
+            onAtrasClick={() => setConfirm(false)}
+          >
+            <LogBotton className="confirm-logic" />
+          </ConfirmLogic>
+        </div>
       ) : (
-        <header>
-          <Link to={"/"}>
+        <header className="header-container">
+          <Link className="link-header" to={"/"}>
             <Icon />
-            <h1>Nodepop</h1>
+            <h1 className="title">Nodepop</h1>
           </Link>
-          <ConfirmButton onclick={onclick}>
+          <ConfirmButton className="logoutButton" onclick={onclick}>
             <p>Logout</p>
           </ConfirmButton>
         </header>

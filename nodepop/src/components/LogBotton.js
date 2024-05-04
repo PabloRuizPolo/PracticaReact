@@ -1,7 +1,8 @@
 import { useAuth } from "../pages/login/context";
 import { logout } from "../pages/login/service";
+import Button from "./Button";
 
-export default function LogBotton() {
+export default function LogBotton({ className }) {
   const { onLogout } = useAuth();
 
   const handleClick = () => {
@@ -9,5 +10,9 @@ export default function LogBotton() {
     onLogout();
   };
 
-  return <button onClick={handleClick}>Logout</button>;
+  return (
+    <Button $variant="main" $place={className} onClick={handleClick}>
+      Logout
+    </Button>
+  );
 }
