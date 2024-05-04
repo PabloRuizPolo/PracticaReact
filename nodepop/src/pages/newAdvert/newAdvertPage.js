@@ -14,6 +14,8 @@ function NewAdvert() {
     tags: [],
     photo: "",
   });
+  const [error, setError] = useState(null);
+
   const { name, sale, price, tags, photo } = inputValues;
 
   const handleChange = (event) => {
@@ -45,14 +47,22 @@ function NewAdvert() {
     const { name, sale, price, tags } = inputValues;
     const newAdd = { name, sale, price, tags };
     event.preventDefault();
-    postAdds(newAdd).then((add) => go(`/adverts/${add.id}`));
-    //go(`/adverts/${newAdd.id}`);
+    try {
+      postAdds(newAdd).then((add) => go(`/adverts/${add.id}`));
+    } catch (error) {
+      setError(error);
+    }
   };
+
+  const quitError = () => {
+    setError(null);
+  };
+
   const disabledButton = !name || !sale || !price || !tags;
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onClick={quitError}>
         <label className="formField-label">name</label>
         <input type="text" name="name" value={name} onChange={handleChange} />
         <label className="formField-label">
@@ -97,6 +107,7 @@ function NewAdvert() {
           Crear anuncio
         </button>
       </form>
+      {error && <div onClick={quitError}>{error.message}</div>}
     </div>
   );
 }
