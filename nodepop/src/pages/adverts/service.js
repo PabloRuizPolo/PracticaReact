@@ -5,6 +5,9 @@ const apiUrl = "api/v1/adverts";
 export const getAdds = () => {
   return client.get(apiUrl);
 };
+export const getTags = () => {
+  return client.get(`${apiUrl}/tags`);
+};
 
 export const postAdds = (add) => {
   return client.post(apiUrl, add);

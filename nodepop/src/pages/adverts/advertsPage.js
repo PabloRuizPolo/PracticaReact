@@ -9,25 +9,71 @@ import "./advertsPage.css";
 function AdvertsPage() {
   const [adds, setAdds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [filteredAdds, setFilteredAdds] = useState([]);
+  const [filterName, setFilterName] = useState("");
+  const [filterSale, setFilterSale] = useState(null);
 
   useEffect(() => {
-    getAdds().then((add) => {
-      setAdds(add);
+    getAdds().then((allAdds) => {
+      setAdds(allAdds);
+      setFilteredAdds(allAdds);
       setIsLoading(false);
     });
 
     return;
   }, []);
 
+  const handleTextFilterChange = (event) => {
+    setFilterName(event.target.value.toLowerCase());
+  };
+
+  const handleSaleFilterChange = (event) => {
+    if (event.target.value === "venta") {
+      setFilterSale(true);
+    } else if (event.target.value === "compra") {
+      setFilterSale(false);
+    } else if (event.target.value === "todos") {
+      setFilterSale(null);
+    }
+  };
+
+  const applyFilters = () => {
+    const filtered = adds.filter((add) => {
+      const nameMatch = add.name.toLowerCase().includes(filterName);
+      const saleMatch = filterSale === null || filterSale === add.sale;
+      return nameMatch && saleMatch;
+    });
+    setFilteredAdds(filtered);
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [filterName, filterSale]);
+
   return (
     <div>
+      <div className="filtros-contenedor">
+        <input
+          type="text"
+          placeholder="Buscar anuncio..."
+          value={filterName}
+          onChange={handleTextFilterChange}
+        />
+        <select value={filterSale} onChange={handleSaleFilterChange}>
+          <option value="todos">Todos</option>
+          <option value="venta">Venta</option>
+          <option value="compra">Compra</option>
+        </select>
+      </div>
       {isLoading ? (
         <LoadingMessage>
           <p>Cargando Anuncios</p>
         </LoadingMessage>
-      ) : adds.length ? (
+      ) : !adds.length ? (
+        <NewAdvert />
+      ) : filteredAdds.length ? (
         <ul className="adsContainer">
-          {adds.map(({ id, ...add }) => (
+          {filteredAdds.map(({ id, ...add }) => (
             <li key={id}>
               <Link to={`/adverts/${id}`}>
                 <Add location="advertsPage" {...add} />
@@ -36,7 +82,7 @@ function AdvertsPage() {
           ))}
         </ul>
       ) : (
-        <NewAdvert />
+        <p>No se encontraron anuncios que coincidan con los filtros.</p>
       )}
     </div>
   );

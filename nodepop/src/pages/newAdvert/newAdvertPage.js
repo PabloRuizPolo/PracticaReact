@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { postAdds } from "../adverts/service";
+import { useEffect, useRef, useState } from "react";
+import { getTags, postAdds } from "../adverts/service";
 import { useAuth } from "../login/context";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
@@ -18,6 +18,13 @@ function NewAdvert() {
     tags: [],
   });
   const [error, setError] = useState(null);
+  const [apiTags, setApiTags] = useState([]);
+
+  useEffect(() => {
+    getTags().then((tags) => setApiTags(tags));
+
+    return;
+  }, []);
 
   const { name, sale, price, tags } = inputValues;
 
@@ -130,10 +137,11 @@ function NewAdvert() {
           onChange={handleChange}
           className="formField-input"
         >
-          <option value="lifestyle">lifestyle</option>
-          <option value="mobile">mobile</option>
-          <option value="work">work</option>
-          <option value="motor">motor</option>
+          {apiTags.map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
         </select>
         <label className="formField-label">Foto</label>
         <input
