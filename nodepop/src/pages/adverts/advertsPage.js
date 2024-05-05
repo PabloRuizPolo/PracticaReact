@@ -30,7 +30,7 @@ function AdvertsPage() {
           {adds.map(({ id, ...add }) => (
             <li key={id}>
               <Link to={`/adverts/${id}`}>
-                <Add {...add} />
+                <Add location="advertsPage" {...add} />
               </Link>
             </li>
           ))}

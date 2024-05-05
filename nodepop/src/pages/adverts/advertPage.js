@@ -40,7 +40,7 @@ export default function AdvertPage() {
         </ConfirmLogic>
       ) : add ? (
         <div>
-          <Add {...add} />
+          <Add location="advertPage" {...add} />
           <ConfirmButton onclick={onclick}>
             <p>Borrar</p>
           </ConfirmButton>

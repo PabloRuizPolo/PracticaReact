@@ -1,6 +1,9 @@
+import Photo from "../../../components/Photo";
 import "../advertsPage.css";
+import defaultPhoto from "../../../assets/default-profile.png";
+import "./add.css";
 
-export default function Add({ name, sale, price, tags, photo }) {
+export default function Add({ name, sale, price, tags, photo, location }) {
   let className = "false";
   let action = "";
   let key = 1;
@@ -12,13 +15,20 @@ export default function Add({ name, sale, price, tags, photo }) {
     action = "Se compra";
   }
 
+  const hasPhoto = photo && photo.length > 0;
+  const classNamePhoto =
+    location === "advertsPage" ? "advertsPage" : "advertPage";
+
   return (
     <section className="adContainer">
       <div className="name-container">
         <h3>{name}</h3>
       </div>
       <div className="img-container">
-        <img>{photo}</img>
+        <Photo
+          photo={hasPhoto ? photo : defaultPhoto}
+          className={classNamePhoto}
+        ></Photo>
       </div>
       <div className="price-container">
         <span>{price} euros</span>

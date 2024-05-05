@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { postAdds } from "../adverts/service";
 import { useAuth } from "../login/context";
 import { useNavigate } from "react-router-dom";
@@ -9,17 +9,17 @@ import FormField from "../../components/FormField";
 function NewAdvert() {
   const { onLogin } = useAuth();
   const go = useNavigate();
+  const photoValue = useRef(null);
 
   const [inputValues, setInputValues] = useState({
     name: "",
     sale: false,
     price: 0,
     tags: [],
-    photo: "",
   });
   const [error, setError] = useState(null);
 
-  const { name, sale, price, tags, photo } = inputValues;
+  const { name, sale, price, tags } = inputValues;
 
   const handleChange = (event) => {
     const { name, value, type } = event.target;
@@ -29,7 +29,7 @@ function NewAdvert() {
         ...formValues,
         sale: value,
       }));
-    } else if (name === "tags") {
+    } else if (event.target.name === "tags" && event.target.selectedOptions) {
       const selectedTags = Array.from(
         event.target.selectedOptions,
         (option) => option.value
@@ -38,6 +38,8 @@ function NewAdvert() {
         ...formValues,
         tags: selectedTags,
       }));
+    } else if (name === "photo") {
+      photoValue.current = event.target.files[0];
     } else {
       setInputValues((formValues) => ({
         ...formValues,
@@ -48,10 +50,22 @@ function NewAdvert() {
 
   const handleSubmit = (event) => {
     const { name, sale, price, tags } = inputValues;
-    const newAdd = { name, sale, price, tags };
+
+    const photo = photoValue.current;
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("sale", sale);
+    formData.append("price", price);
+    formData.append("tags", tags.join(","));
+
+    if (photo && photo instanceof File) {
+      formData.append("photo", photo, photo.name);
+    }
     event.preventDefault();
     try {
-      postAdds(newAdd).then((add) => go(`/adverts/${add.id}`));
+      console.log(formData);
+      postAdds(formData).then((add) => go(`/adverts/${add.id}`));
     } catch (error) {
       setError(error);
     }
@@ -123,10 +137,10 @@ function NewAdvert() {
         </select>
         <label className="formField-label">Foto</label>
         <input
+          ref={photoValue}
           className="input-photo"
           type="file"
           name="photo"
-          value={photo} // File inputs typically don't have a value
           onChange={handleChange}
         />
         <Button
