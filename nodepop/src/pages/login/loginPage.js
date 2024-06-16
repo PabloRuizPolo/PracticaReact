@@ -5,11 +5,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import FormField from "../../components/FormField";
 import "./loginPage.css";
+import { useDispatch } from "react-redux";
 
 export default function LoginPage() {
   const { onLogin } = useAuth();
   const location = useLocation();
   const go = useNavigate();
+  const dispatch = useDispatch();
 
   const [error, setError] = useState(null);
   const [isFetch, setIsFetch] = useState(false);
@@ -48,7 +50,7 @@ export default function LoginPage() {
     setError(null);
   };
 
-  const disabledButton = !email || !password || isFetch;
+  const disabledButton = !email || !password;
 
   return (
     <div className="loginPage">
