@@ -7,6 +7,8 @@ import { setAuthorization } from "./api/client";
 import { AuthContextProvider } from "./pages/login/context";
 import { BrowserRouter } from "react-router-dom";
 
+import configureStore from "./store";
+
 const accessToken = storage.get("auth");
 if (accessToken) {
   setAuthorization(accessToken);
