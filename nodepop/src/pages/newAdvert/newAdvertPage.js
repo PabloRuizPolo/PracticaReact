@@ -7,7 +7,6 @@ import "./newAdvertPage.css";
 import FormField from "../../components/FormField";
 
 function NewAdvert() {
-  const { onLogin } = useAuth();
   const go = useNavigate();
   const photoValue = useRef(null);
 

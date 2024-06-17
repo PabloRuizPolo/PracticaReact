@@ -5,8 +5,18 @@ import * as reducers from "./reducers";
 import * as actions from "./actions";
 
 const reducer = combineReducers(reducers);
-const composeEnhancers = composeWithDevTools({ actions });
+//const composeEnhancers = composeWithDevTools({ actions });
 
+export default function configureStore(preloadedState) {
+  const store = createStore(
+    reducer,
+    preloadedState,
+    composeWithDevTools({ actions })()
+  );
+  return store;
+}
+
+/*
 export default function confifureStore(preloadedState) {
   const store = createStore(
     reducer,
@@ -18,3 +28,4 @@ export default function confifureStore(preloadedState) {
 
   return store;
 }
+  */

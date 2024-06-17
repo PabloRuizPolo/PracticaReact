@@ -5,23 +5,29 @@ import { Link } from "react-router-dom";
 import NewAdvert from "../newAdvert/newAdvertPage";
 import LoadingMessage from "../../components/LoadingMessage";
 import "./advertsPage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { tweetsLoaded } from "../../store/actions";
+import { getAddsState } from "../../store/selectors";
 
 function AdvertsPage() {
-  const [adds, setAdds] = useState([]);
+  //const [adds, setAdds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filteredAdds, setFilteredAdds] = useState([]);
   const [filterName, setFilterName] = useState("");
   const [filterSale, setFilterSale] = useState(null);
 
+  const dispatch = useDispatch();
+  const adds = useSelector(getAddsState);
+
   useEffect(() => {
     getAdds().then((allAdds) => {
-      setAdds(allAdds);
+      //setAdds(allAdds);
+      setIsLoading(true);
+      dispatch(tweetsLoaded(allAdds));
       setFilteredAdds(allAdds);
       setIsLoading(false);
     });
-
-    return;
-  }, []);
+  }, [dispatch]);
 
   const handleTextFilterChange = (event) => {
     setFilterName(event.target.value.toLowerCase());
@@ -38,6 +44,9 @@ function AdvertsPage() {
   };
 
   const applyFilters = () => {
+    if (!adds) {
+      return;
+    }
     const filtered = adds.filter((add) => {
       const nameMatch = add.name.toLowerCase().includes(filterName);
       const saleMatch = filterSale === null || filterSale === add.sale;

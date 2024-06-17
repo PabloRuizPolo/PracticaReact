@@ -6,9 +6,14 @@ import Button from "../../components/Button";
 import FormField from "../../components/FormField";
 import "./loginPage.css";
 import { useDispatch } from "react-redux";
+import {
+  authLogin,
+  auth_login_completed,
+  auth_login_pending,
+  auth_login_rejected,
+} from "../../store/actions";
 
 export default function LoginPage() {
-  const { onLogin } = useAuth();
   const location = useLocation();
   const go = useNavigate();
   const dispatch = useDispatch();
@@ -37,9 +42,9 @@ export default function LoginPage() {
       setIsFetch(true);
       await login(inputValues);
       setIsFetch(false);
-      onLogin();
+      dispatch(authLogin());
       const to = location.state?.from || "/";
-      go(to, { relative: true });
+      go(to, { replace: true });
     } catch (error) {
       setIsFetch(false);
       setError(error);

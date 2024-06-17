@@ -1,6 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import AdvertsPage from "./pages/adverts/advertsPage";
-import { useAuth } from "./pages/login/context";
 import LoginPage from "./pages/login/loginPage";
 import NewAdvert from "./pages/newAdvert/newAdvertPage";
 import AdvertPage from "./pages/adverts/advertPage";
@@ -8,7 +7,6 @@ import RequiereAuth from "./utils/requiereAuth";
 import Layout from "./components/Layout";
 
 function App() {
-  const { isLogged } = useAuth();
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />

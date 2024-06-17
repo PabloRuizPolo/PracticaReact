@@ -1,3 +1,23 @@
+import { AUTH_LOGIN, AUTH_LOGOUT, ADDS_LOADED, ADDS_CREATED } from "./types";
+
+export const authLogin = () => ({
+  type: AUTH_LOGIN,
+});
+
+export const authLogout = () => ({
+  type: AUTH_LOGOUT,
+});
+
+export const tweetsLoaded = (adds) => ({
+  type: ADDS_LOADED,
+  payload: adds,
+});
+
+export const tweetsCreated = (add) => ({
+  type: ADDS_CREATED,
+  payload: add,
+});
+/*
 import {
   ADDS_CREATED_COMPLETED,
   ADDS_CREATED_PENDING,
@@ -19,11 +39,9 @@ import {
 export const auth_login_pending = () => ({
   type: AUTH_LOGIN_PENDING,
 });
-
 export const auth_login_completed = () => ({
   type: AUTH_LOGIN_COMPLETED,
 });
-
 export const auth_login_rejected = (error) => ({
   type: AUTH_LOGIN_REJECTED,
   payload: error,
@@ -37,12 +55,10 @@ export const auth_logout = () => ({
 export const adds_loaded_pending = () => ({
   type: ADDS_LOADED_PENDING,
 });
-
 export const adds_loaded_completed = (adds) => ({
   type: ADDS_LOADED_COMPLETED,
   payload: adds,
 });
-
 export const adds_loaded_rejected = (error) => ({
   type: ADDS_LOADED_REJECTED,
   payload: error,
@@ -87,3 +103,4 @@ export const adds_deleted_rejected = (error) => ({
   payload: error,
   error: true,
 });
+*/
