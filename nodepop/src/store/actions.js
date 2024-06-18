@@ -1,23 +1,5 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, ADDS_LOADED, ADDS_CREATED } from "./types";
-
-export const authLogin = () => ({
-  type: AUTH_LOGIN,
-});
-
-export const authLogout = () => ({
-  type: AUTH_LOGOUT,
-});
-
-export const tweetsLoaded = (adds) => ({
-  type: ADDS_LOADED,
-  payload: adds,
-});
-
-export const tweetsCreated = (add) => ({
-  type: ADDS_CREATED,
-  payload: add,
-});
-/*
+import { getAdds } from "../pages/adverts/service";
+import { getAddLoaded } from "./selectors";
 import {
   ADDS_CREATED_COMPLETED,
   ADDS_CREATED_PENDING,
@@ -34,6 +16,7 @@ import {
   AUTH_LOGIN_PENDING,
   AUTH_LOGIN_REJECTED,
   AUTH_LOGOUT,
+  UI_RESET_ERROR,
 } from "./types";
 
 export const auth_login_pending = () => ({
@@ -47,6 +30,19 @@ export const auth_login_rejected = (error) => ({
   payload: error,
   error: true,
 });
+
+export const authLogin = (inputValues) => {
+  return async function (dispatch, _getState, { services: { auth } }) {
+    try {
+      dispatch(auth_login_pending());
+      await auth.login(inputValues);
+      dispatch(auth_login_completed());
+    } catch (error) {
+      dispatch(auth_login_rejected(error));
+      throw error;
+    }
+  };
+};
 
 export const auth_logout = () => ({
   type: AUTH_LOGOUT,
@@ -64,6 +60,23 @@ export const adds_loaded_rejected = (error) => ({
   payload: error,
   error: true,
 });
+
+export const addsLoad = () => {
+  return async function (dispatch, getState, { services: { adds } }) {
+    const state = getState();
+    if (getAddLoaded(state)) {
+      return;
+    }
+    try {
+      dispatch(adds_loaded_pending());
+      const addsPayload = await adds.getAdds();
+      dispatch(adds_loaded_completed(addsPayload));
+    } catch (error) {
+      dispatch(adds_loaded_rejected(error));
+      throw error;
+    }
+  };
+};
 
 export const adds_detail_pending = () => ({
   type: ADDS_DETAIL_PENDING,
@@ -103,4 +116,7 @@ export const adds_deleted_rejected = (error) => ({
   payload: error,
   error: true,
 });
-*/
+
+export const uiResetError = () => ({
+  type: UI_RESET_ERROR,
+});

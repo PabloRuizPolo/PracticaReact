@@ -1,10 +1,3 @@
-export const AUTH_LOGIN = "auth/login";
-export const AUTH_LOGOUT = "auth/logout";
-
-export const ADDS_LOADED = "adds/loaded";
-export const ADDS_CREATED = "adds/created";
-
-/*
 export const AUTH_LOGIN_PENDING = "auth/login/pending";
 export const AUTH_LOGIN_COMPLETED = "auth/login/fulfilled";
 export const AUTH_LOGIN_REJECTED = "auth/login/rejected";
@@ -26,4 +19,5 @@ export const ADDS_CREATED_REJECTED = "tweets/created/rejected";
 export const ADDS_DELETED_PENDING = "tweets/deleted/pending";
 export const ADDS_DELETED_COMPLETED = "tweets/deleted/fulfilled";
 export const ADDS_DELETED_REJECTED = "tweets/deleted/rejected";
-*/
+
+export const UI_RESET_ERROR = "ui/reset-error";

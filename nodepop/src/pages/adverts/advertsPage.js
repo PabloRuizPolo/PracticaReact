@@ -6,12 +6,10 @@ import NewAdvert from "../newAdvert/newAdvertPage";
 import LoadingMessage from "../../components/LoadingMessage";
 import "./advertsPage.css";
 import { useDispatch, useSelector } from "react-redux";
-import { tweetsLoaded } from "../../store/actions";
-import { getAddsState } from "../../store/selectors";
+import { addsLoad, tweetsLoaded } from "../../store/actions";
+import { getAddsState, getUi } from "../../store/selectors";
 
 function AdvertsPage() {
-  //const [adds, setAdds] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [filteredAdds, setFilteredAdds] = useState([]);
   const [filterName, setFilterName] = useState("");
   const [filterSale, setFilterSale] = useState(null);
@@ -19,15 +17,12 @@ function AdvertsPage() {
   const dispatch = useDispatch();
   const adds = useSelector(getAddsState);
 
+  const { pending: isLoading } = useSelector(getUi);
+
   useEffect(() => {
-    getAdds().then((allAdds) => {
-      //setAdds(allAdds);
-      setIsLoading(true);
-      dispatch(tweetsLoaded(allAdds));
-      setFilteredAdds(allAdds);
-      setIsLoading(false);
-    });
-  }, [dispatch]);
+    dispatch(addsLoad());
+    applyFilters();
+  }, [adds, filterName, filterSale]);
 
   const handleTextFilterChange = (event) => {
     setFilterName(event.target.value.toLowerCase());
@@ -54,10 +49,6 @@ function AdvertsPage() {
     });
     setFilteredAdds(filtered);
   };
-
-  useEffect(() => {
-    applyFilters();
-  }, [filterName, filterSale]);
 
   return (
     <div>

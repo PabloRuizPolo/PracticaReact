@@ -6,17 +6,23 @@ import DeleteAdd from "./components/DeleteBotton";
 import LoadingMessage from "../../components/LoadingMessage";
 import ConfirmButton from "../../components/ConfirmButton";
 import ConfirmLogic from "../../components/ConfirmLogic";
+import { useSelector } from "react-redux";
+import { getAddState, getAddsState } from "../../store/selectors";
 
 export default function AdvertPage() {
-  const [add, setAdd] = useState(null);
+  //const [add, setAdd] = useState(null);
   const [confirm, setConfirm] = useState(false);
-  const params = useParams();
-  const go = useNavigate();
+  //const params = useParams();
+  //const go = useNavigate();
 
   const onclick = () => {
     setConfirm(true);
   };
 
+  const { addId } = useParams();
+  const add = useSelector(getAddState(addId));
+
+  /*
   useEffect(() => {
     async function getAddToRender() {
       try {
@@ -31,6 +37,7 @@ export default function AdvertPage() {
 
     getAddToRender();
   }, [params.id, go]);
+  */
 
   return (
     <div>

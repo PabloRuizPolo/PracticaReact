@@ -1,25 +1,18 @@
 import { useState } from "react";
-import { useAuth } from "./context";
-import { login } from "./service";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import FormField from "../../components/FormField";
 import "./loginPage.css";
-import { useDispatch } from "react-redux";
-import {
-  authLogin,
-  auth_login_completed,
-  auth_login_pending,
-  auth_login_rejected,
-} from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { authLogin, uiResetError } from "../../store/actions";
+import { getUi } from "../../store/selectors";
 
 export default function LoginPage() {
   const location = useLocation();
   const go = useNavigate();
   const dispatch = useDispatch();
 
-  const [error, setError] = useState(null);
-  const [isFetch, setIsFetch] = useState(false);
+  const { pending: isFetch, error } = useSelector(getUi);
 
   const [inputValues, setInputValues] = useState({
     email: "",
@@ -37,25 +30,17 @@ export default function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      setIsFetch(true);
-      await login(inputValues);
-      setIsFetch(false);
-      dispatch(authLogin());
+    dispatch(authLogin(inputValues)).then(() => {
       const to = location.state?.from || "/";
       go(to, { replace: true });
-    } catch (error) {
-      setIsFetch(false);
-      setError(error);
-    }
+    });
   };
 
   const quitError = () => {
-    setError(null);
+    dispatch(uiResetError());
   };
 
-  const disabledButton = !email || !password;
+  const disabledButton = !email || !password || isFetch;
 
   return (
     <div className="loginPage">
