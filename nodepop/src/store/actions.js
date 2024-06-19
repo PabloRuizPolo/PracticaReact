@@ -1,4 +1,4 @@
-import { getAddDetail, getAddLoaded, getAddState } from "./selectors";
+import { getAddLoaded, getAddState } from "./selectors";
 import {
   ADDS_CREATED_COMPLETED,
   ADDS_CREATED_PENDING,
@@ -105,6 +105,20 @@ export const adds_created_rejected = (error) => ({
   payload: error,
   error: true,
 });
+
+export const createdAdd = (add) => {
+  return async function (dispatch, getState, { services: { adds } }) {
+    try {
+      dispatch(adds_created_pending());
+      const newAdd = await adds.postAdds(add);
+      dispatch(adds_created_completed(newAdd));
+      return newAdd;
+    } catch (error) {
+      dispatch(adds_created_rejected(error));
+      throw error;
+    }
+  };
+};
 
 export const adds_deleted_pending = () => ({
   type: ADDS_DELETED_PENDING,

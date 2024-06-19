@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import "./newAdvertPage.css";
 import FormField from "../../components/FormField";
+import { useDispatch } from "react-redux";
+import { createdAdd } from "../../store/actions";
 
 function NewAdvert() {
   const go = useNavigate();
   const photoValue = useRef(null);
+  const dispatch = useDispatch();
 
   const [inputValues, setInputValues] = useState({
     name: "",
@@ -54,7 +57,7 @@ function NewAdvert() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     const { name, sale, price, tags } = inputValues;
 
     const photo = photoValue.current;
@@ -69,12 +72,17 @@ function NewAdvert() {
       formData.append("photo", photo, photo.name);
     }
     event.preventDefault();
+
+    const newAdd = await dispatch(createdAdd(formData));
+
+    go(`/adverts/${newAdd.id}`);
+    /*
     try {
       console.log(formData);
       postAdds(formData).then((add) => go(`/adverts/${add.id}`));
     } catch (error) {
       setError(error);
-    }
+    }*/
   };
 
   const quitError = () => {
