@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { getTags } from "../adverts/service";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import "./newAdvertPage.css";
 import FormField from "../../components/FormField";
-import { useDispatch } from "react-redux";
-import { createdAdd } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { createdAdd, getApiTags } from "../../store/actions";
+import { getTagsState } from "../../store/selectors";
 
 function NewAdvert() {
   const go = useNavigate();
@@ -19,13 +19,12 @@ function NewAdvert() {
     tags: [],
   });
   const [error, setError] = useState(null);
-  const [apiTags, setApiTags] = useState([]);
+
+  const apiTags = useSelector(getTagsState);
 
   useEffect(() => {
-    getTags().then((tags) => setApiTags(tags));
-
-    return;
-  }, []);
+    dispatch(getApiTags());
+  }, [dispatch]);
 
   const { name, sale, price, tags } = inputValues;
 

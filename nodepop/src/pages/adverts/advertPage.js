@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Add from "./components/add";
 import DeleteAdd from "./components/DeleteBotton";
 import LoadingMessage from "../../components/LoadingMessage";
 import ConfirmButton from "../../components/ConfirmButton";
 import ConfirmLogic from "../../components/ConfirmLogic";
 import { useDispatch, useSelector } from "react-redux";
-import { getAddLoaded, getAddState, getAddsState } from "../../store/selectors";
+import { getAddState } from "../../store/selectors";
 import { addLoad } from "../../store/actions";
 
 export default function AdvertPage() {

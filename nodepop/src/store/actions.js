@@ -13,6 +13,9 @@ import {
   AUTH_LOGIN_PENDING,
   AUTH_LOGIN_REJECTED,
   AUTH_LOGOUT,
+  TAGS_LOADED_COMPLETED,
+  TAGS_LOADED_PENDING,
+  TAGS_LOADED_REJECTED,
   UI_RESET_ERROR,
 } from "./types";
 
@@ -145,6 +148,32 @@ export const deleteAddRedux = (id) => {
       dispatch(adds_deleted_completed(add));
     } catch (error) {
       dispatch(adds_deleted_rejected(error));
+    }
+  };
+};
+
+export const tags_loaded_pending = () => ({
+  type: TAGS_LOADED_PENDING,
+});
+export const tags_loaded_completed = (tags) => ({
+  type: TAGS_LOADED_COMPLETED,
+  payload: tags,
+});
+export const tags_loaded_rejected = (error) => ({
+  type: TAGS_LOADED_REJECTED,
+  payload: error,
+  error: true,
+});
+
+export const getApiTags = () => {
+  return async function (dispatch, getState, { services: { adds } }) {
+    try {
+      dispatch(tags_loaded_pending);
+      const tags = await adds.getTags();
+      dispatch(tags_loaded_completed(tags));
+      return tags;
+    } catch (error) {
+      dispatch(tags_loaded_rejected(error));
     }
   };
 };

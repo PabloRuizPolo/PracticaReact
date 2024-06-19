@@ -6,6 +6,7 @@ import {
   AUTH_LOGIN_COMPLETED,
   AUTH_LOGOUT,
   UI_RESET_ERROR,
+  TAGS_LOADED_COMPLETED,
 } from "./types";
 
 export const defaultState = {
@@ -14,6 +15,7 @@ export const defaultState = {
     loaded: false,
     data: [],
   },
+  tags: [],
   ui: {
     pending: false,
     error: null,
@@ -49,6 +51,16 @@ export function adds(state = defaultState.adds, action) {
   }
 }
 
+export function tags(state = defaultState.tags, action) {
+  switch (action.type) {
+    case TAGS_LOADED_COMPLETED:
+      return action.payload;
+
+    default:
+      return state;
+  }
+}
+
 export function ui(state = defaultState.ui, action) {
   if (action.error) {
     return { ...state, pending: false, error: action.payload };
@@ -57,7 +69,7 @@ export function ui(state = defaultState.ui, action) {
     return { ...state, pending: true };
   }
 
-  if (action.type.endsWith("/fulfilled")) {
+  if (action.type.endsWith("/completed")) {
     return { ...state, pending: false, error: null };
   }
 
