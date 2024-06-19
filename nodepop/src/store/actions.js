@@ -1,14 +1,11 @@
-import { getAdds } from "../pages/adverts/service";
-import { getAddLoaded } from "./selectors";
+import { getAddDetail, getAddLoaded, getAddState } from "./selectors";
 import {
   ADDS_CREATED_COMPLETED,
   ADDS_CREATED_PENDING,
   ADDS_CREATED_REJECTED,
   ADDS_DELETED_COMPLETED,
   ADDS_DELETED_PENDING,
-  ADDS_DETAIL_COMPLETED,
-  ADDS_DETAIL_PENDING,
-  ADDS_DETAIL_REJECTED,
+  ADDS_DETAIL,
   ADDS_LOADED_COMPLETED,
   ADDS_LOADED_PENDING,
   ADDS_LOADED_REJECTED,
@@ -78,18 +75,23 @@ export const addsLoad = () => {
   };
 };
 
-export const adds_detail_pending = () => ({
-  type: ADDS_DETAIL_PENDING,
-});
-export const adds_detail_completed = (add) => ({
-  type: ADDS_DETAIL_COMPLETED,
+export const addsDetail = (add) => ({
+  type: ADDS_DETAIL,
   payload: add,
 });
-export const adds_detail_rejected = (error) => ({
-  type: ADDS_DETAIL_REJECTED,
-  payload: error,
-  error: true,
-});
+
+export const addLoad = (id) => {
+  return async function (dispatch, getState, { services: { adds } }) {
+    const state = getState();
+    if (getAddState(id)(state)) {
+      return;
+    }
+
+    const addPayload = await adds.getAdd(id);
+    console.log(addPayload);
+    dispatch(addsDetail(addPayload));
+  };
+};
 
 export const adds_created_pending = () => ({
   type: ADDS_CREATED_PENDING,

@@ -22,7 +22,7 @@ function AdvertsPage() {
   useEffect(() => {
     dispatch(addsLoad());
     applyFilters();
-  }, [adds, filterName, filterSale]);
+  }, [dispatch, adds, filterName, filterSale]);
 
   const handleTextFilterChange = (event) => {
     setFilterName(event.target.value.toLowerCase());

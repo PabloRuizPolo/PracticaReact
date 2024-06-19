@@ -1,43 +1,28 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getAdd } from "./service";
 import Add from "./components/add";
 import DeleteAdd from "./components/DeleteBotton";
 import LoadingMessage from "../../components/LoadingMessage";
 import ConfirmButton from "../../components/ConfirmButton";
 import ConfirmLogic from "../../components/ConfirmLogic";
-import { useSelector } from "react-redux";
-import { getAddState, getAddsState } from "../../store/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { getAddLoaded, getAddState, getAddsState } from "../../store/selectors";
+import { addLoad } from "../../store/actions";
 
 export default function AdvertPage() {
-  //const [add, setAdd] = useState(null);
   const [confirm, setConfirm] = useState(false);
-  //const params = useParams();
-  //const go = useNavigate();
+  const dispatch = useDispatch();
 
   const onclick = () => {
     setConfirm(true);
   };
 
-  const { addId } = useParams();
-  const add = useSelector(getAddState(addId));
+  const { id } = useParams();
+  const add = useSelector(getAddState(id));
 
-  /*
   useEffect(() => {
-    async function getAddToRender() {
-      try {
-        const add = await getAdd(params.id);
-        setAdd(add);
-      } catch (error) {
-        if (error.status === 404) {
-          go("/404");
-        }
-      }
-    }
-
-    getAddToRender();
-  }, [params.id, go]);
-  */
+    dispatch(addLoad(id));
+  }, [id, add, dispatch]);
 
   return (
     <div>

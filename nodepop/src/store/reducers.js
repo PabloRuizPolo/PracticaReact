@@ -1,6 +1,7 @@
 import {
   ADDS_CREATED_COMPLETED,
   ADDS_DELETED_COMPLETED,
+  ADDS_DETAIL,
   ADDS_DETAIL_COMPLETED,
   ADDS_LOADED_COMPLETED,
   AUTH_LOGIN_COMPLETED,
@@ -35,7 +36,7 @@ export function adds(state = defaultState.adds, action) {
   switch (action.type) {
     case ADDS_LOADED_COMPLETED:
       return { ...state, loaded: true, data: action.payload };
-    case ADDS_DETAIL_COMPLETED:
+    case ADDS_DETAIL:
       return { ...state, data: [action.payload] };
     case ADDS_CREATED_COMPLETED:
       return { ...state, data: [action.payload, ...state.data] };

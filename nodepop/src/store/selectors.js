@@ -3,10 +3,13 @@ export const getIsLogged = (state) => state.auth;
 export const getAddsState = (state) => state.adds.data;
 export const getAddLoaded = (state) => state.adds.loaded;
 
-/*export const getAdd = (state, addId) =>
-  getAddsState(state).find((add) => Number(addId) === add.id);
+/*
+export const getAddDetail = (state, id) =>
+  getAddsState(state).find((add) => add.id === Number(id));
+
 */
-export const getAddState = (addId) => (state) =>
-  getAddsState(state).find((add) => add.id === Number(addId));
+
+export const getAddState = (id) => (state) =>
+  getAddsState(state).find((add) => add.id === id);
 
 export const getUi = (state) => state.ui;
