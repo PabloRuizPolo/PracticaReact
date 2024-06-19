@@ -41,7 +41,6 @@ export const authLogin = (credentials) => {
       router.navigate(to, { replace: true });
     } catch (error) {
       dispatch(auth_login_rejected(error));
-      throw error;
     }
   };
 };
@@ -76,7 +75,6 @@ export const addsLoad = () => {
       dispatch(adds_loaded_completed(addsPayload));
     } catch (error) {
       dispatch(adds_loaded_rejected(error));
-      throw error;
     }
   };
 };

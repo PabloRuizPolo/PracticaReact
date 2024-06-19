@@ -7,6 +7,8 @@ import * as actions from "./actions";
 import * as auth from "../pages/login/service";
 import * as adds from "../pages/adverts/service";
 
+import { errorsMiddlewares } from "./middlewares";
+
 const reducer = combineReducers(reducers);
 const composeEnhancers = composeWithDevTools({ actions });
 
@@ -15,7 +17,13 @@ export default function confifureStore(preloadedState, { router }) {
     reducer,
     preloadedState,
     composeEnhancers(
-      applyMiddleware(withExtraArgument({ services: { auth, adds }, router }))
+      applyMiddleware(
+        withExtraArgument({ services: { auth, adds }, router }),
+        errorsMiddlewares(router, {
+          404: "/404",
+          401: "/login",
+        })
+      )
     )
   );
 
