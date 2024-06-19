@@ -8,8 +8,6 @@ import { authLogin, uiResetError } from "../../store/actions";
 import { getUi } from "../../store/selectors";
 
 export default function LoginPage() {
-  const location = useLocation();
-  const go = useNavigate();
   const dispatch = useDispatch();
 
   const { pending: isFetch, error } = useSelector(getUi);
@@ -30,10 +28,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(authLogin(inputValues)).then(() => {
-      const to = location.state?.from || "/";
-      go(to, { replace: true });
-    });
+    dispatch(authLogin(inputValues));
   };
 
   const quitError = () => {

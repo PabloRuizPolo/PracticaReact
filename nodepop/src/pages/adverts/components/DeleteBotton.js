@@ -5,12 +5,10 @@ import { useDispatch } from "react-redux";
 import { deleteAddRedux } from "../../../store/actions";
 
 export default function DeleteAdd({ id }) {
-  const go = useNavigate();
   const dispatch = useDispatch();
 
-  const handleClick = async () => {
+  const handleClick = () => {
     dispatch(deleteAddRedux(id));
-    go("/");
   };
 
   return (

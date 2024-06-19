@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { getAdds } from "./service";
 import Add from "./components/add";
 import { Link } from "react-router-dom";
 import NewAdvert from "../newAdvert/newAdvertPage";
 import LoadingMessage from "../../components/LoadingMessage";
 import "./advertsPage.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addsLoad, tweetsLoaded } from "../../store/actions";
+import { addsLoad } from "../../store/actions";
 import { getAddsState, getUi } from "../../store/selectors";
 
 function AdvertsPage() {

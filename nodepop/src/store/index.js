@@ -10,12 +10,12 @@ import * as adds from "../pages/adverts/service";
 const reducer = combineReducers(reducers);
 const composeEnhancers = composeWithDevTools({ actions });
 
-export default function confifureStore(preloadedState) {
+export default function confifureStore(preloadedState, { router }) {
   const store = createStore(
     reducer,
     preloadedState,
     composeEnhancers(
-      applyMiddleware(withExtraArgument({ services: { auth, adds } }))
+      applyMiddleware(withExtraArgument({ services: { auth, adds }, router }))
     )
   );
 

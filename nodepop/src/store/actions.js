@@ -32,11 +32,13 @@ export const auth_login_rejected = (error) => ({
 });
 
 export const authLogin = (credentials) => {
-  return async function (dispatch, _getState, { services: { auth } }) {
+  return async function (dispatch, _getState, { services: { auth }, router }) {
     try {
       dispatch(auth_login_pending());
       await auth.login(credentials);
       dispatch(auth_login_completed());
+      const to = router.state.location.state?.from || "/";
+      router.navigate(to, { replace: true });
     } catch (error) {
       dispatch(auth_login_rejected(error));
       throw error;
@@ -111,11 +113,12 @@ export const adds_created_rejected = (error) => ({
 });
 
 export const createdAdd = (add) => {
-  return async function (dispatch, getState, { services: { adds } }) {
+  return async function (dispatch, getState, { services: { adds }, router }) {
     try {
       dispatch(adds_created_pending());
       const newAdd = await adds.postAdds(add);
       dispatch(adds_created_completed(newAdd));
+      router.navigate(`/adverts/${newAdd.id}`);
       return newAdd;
     } catch (error) {
       dispatch(adds_created_rejected(error));
@@ -138,7 +141,7 @@ export const adds_deleted_rejected = (error) => ({
 });
 
 export const deleteAddRedux = (id) => {
-  return async function (dispatch, getState, { services: { adds } }) {
+  return async function (dispatch, getState, { services: { adds }, router }) {
     const state = getState();
     const add = getAddState(id)(state);
 
@@ -146,6 +149,7 @@ export const deleteAddRedux = (id) => {
       dispatch(adds_deleted_pending());
       await adds.deleteAdd(id);
       dispatch(adds_deleted_completed(add));
+      router.navigate("/adverts");
     } catch (error) {
       dispatch(adds_deleted_rejected(error));
     }

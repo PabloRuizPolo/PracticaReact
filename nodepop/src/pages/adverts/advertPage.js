@@ -22,7 +22,7 @@ export default function AdvertPage() {
 
   useEffect(() => {
     dispatch(addLoad(id));
-  }, [id, add, dispatch]);
+  }, [id, dispatch]);
 
   return (
     <div>

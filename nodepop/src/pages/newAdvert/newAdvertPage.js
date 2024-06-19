@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import "./newAdvertPage.css";
 import FormField from "../../components/FormField";
@@ -8,7 +7,6 @@ import { createdAdd, getApiTags } from "../../store/actions";
 import { getTagsState } from "../../store/selectors";
 
 function NewAdvert() {
-  const go = useNavigate();
   const photoValue = useRef(null);
   const dispatch = useDispatch();
 
@@ -55,7 +53,7 @@ function NewAdvert() {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     const { name, sale, price, tags } = inputValues;
 
     const photo = photoValue.current;
@@ -71,9 +69,7 @@ function NewAdvert() {
     }
     event.preventDefault();
 
-    const newAdd = await dispatch(createdAdd(formData));
-
-    go(`/adverts/${newAdd.id}`);
+    dispatch(createdAdd(formData));
   };
 
   const quitError = () => {
