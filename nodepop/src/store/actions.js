@@ -133,6 +133,21 @@ export const adds_deleted_rejected = (error) => ({
   error: true,
 });
 
+export const deleteAddRedux = (id) => {
+  return async function (dispatch, getState, { services: { adds } }) {
+    const state = getState();
+    const add = getAddState(id)(state);
+
+    try {
+      dispatch(adds_deleted_pending());
+      await adds.deleteAdd(id);
+      dispatch(adds_deleted_completed(add));
+    } catch (error) {
+      dispatch(adds_deleted_rejected(error));
+    }
+  };
+};
+
 export const uiResetError = () => ({
   type: UI_RESET_ERROR,
 });

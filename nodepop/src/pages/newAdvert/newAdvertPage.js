@@ -76,13 +76,6 @@ function NewAdvert() {
     const newAdd = await dispatch(createdAdd(formData));
 
     go(`/adverts/${newAdd.id}`);
-    /*
-    try {
-      console.log(formData);
-      postAdds(formData).then((add) => go(`/adverts/${add.id}`));
-    } catch (error) {
-      setError(error);
-    }*/
   };
 
   const quitError = () => {
