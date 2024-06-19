@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { getTags, postAdds } from "../adverts/service";
-import { useAuth } from "../login/context";
+import { getTags } from "../adverts/service";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import "./newAdvertPage.css";

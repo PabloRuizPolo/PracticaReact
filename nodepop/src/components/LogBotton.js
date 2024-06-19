@@ -1,13 +1,14 @@
-import { useAuth } from "../pages/login/context";
-import { logout } from "../pages/login/service";
+import { useDispatch } from "react-redux";
 import Button from "./Button";
+import { auth_logout } from "../store/actions";
+import { logout } from "../pages/login/service";
 
 export default function LogBotton({ className }) {
-  const { onLogout } = useAuth();
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    logout();
-    onLogout();
+  const handleClick = async () => {
+    await logout();
+    dispatch(auth_logout());
   };
 
   return (

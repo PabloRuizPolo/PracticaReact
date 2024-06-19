@@ -28,11 +28,11 @@ export const auth_login_rejected = (error) => ({
   error: true,
 });
 
-export const authLogin = (inputValues) => {
+export const authLogin = (credentials) => {
   return async function (dispatch, _getState, { services: { auth } }) {
     try {
       dispatch(auth_login_pending());
-      await auth.login(inputValues);
+      await auth.login(credentials);
       dispatch(auth_login_completed());
     } catch (error) {
       dispatch(auth_login_rejected(error));
@@ -61,6 +61,7 @@ export const adds_loaded_rejected = (error) => ({
 export const addsLoad = () => {
   return async function (dispatch, getState, { services: { adds } }) {
     const state = getState();
+
     if (getAddLoaded(state)) {
       return;
     }

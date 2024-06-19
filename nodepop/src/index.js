@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import storage from "./utils/storage";
 import { setAuthorization } from "./api/client";
-import { AuthContextProvider } from "./pages/login/context";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
