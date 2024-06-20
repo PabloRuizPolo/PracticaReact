@@ -120,7 +120,6 @@ export const createdAdd = (add) => {
       return newAdd;
     } catch (error) {
       dispatch(adds_created_rejected(error));
-      throw error;
     }
   };
 };
