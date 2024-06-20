@@ -22,7 +22,7 @@ function NewAdvert() {
 
   useEffect(() => {
     dispatch(getApiTags());
-  }, [dispatch]);
+  }, []);
 
   const { name, sale, price, tags } = inputValues;
 

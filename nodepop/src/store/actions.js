@@ -170,7 +170,7 @@ export const tags_loaded_rejected = (error) => ({
 export const getApiTags = () => {
   return async function (dispatch, getState, { services: { adds } }) {
     try {
-      dispatch(tags_loaded_pending);
+      dispatch(tags_loaded_pending());
       const tags = await adds.getTags();
       dispatch(tags_loaded_completed(tags));
       return tags;
