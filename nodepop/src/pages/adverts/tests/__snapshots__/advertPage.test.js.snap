@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`advertPage snapshot 1`] = `
+<div>
+  <div>
+    <div>
+      <p>
+        Cargando detalles del anuncio
+      </p>
+    </div>
+  </div>
+</div>
+`;

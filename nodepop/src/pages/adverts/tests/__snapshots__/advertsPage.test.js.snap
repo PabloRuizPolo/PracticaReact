@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdvertsPage snapshot 1`] = `
+<div>
+  <div>
+    <div
+      class="filtros-contenedor"
+    >
+      <input
+        placeholder="Buscar anuncio..."
+        type="text"
+        value=""
+      />
+      <select>
+        <option
+          value="todos"
+        >
+          Todos
+        </option>
+        <option
+          value="venta"
+        >
+          Venta
+        </option>
+        <option
+          value="compra"
+        >
+          Compra
+        </option>
+      </select>
+    </div>
+    <div>
+      <form
+        class="form-container"
+      >
+        <div
+          class="newAdd-formField"
+        >
+          <label
+            class="formField-label"
+          >
+            <span>
+              Nombre del producto
+            </span>
+            <input
+              class="formField-input"
+              name="name"
+              type="text"
+              value=""
+            />
+          </label>
+        </div>
+        <label
+          class="formField-label"
+        >
+          ¿Que desea hacer?
+          <input
+            class="formField-input"
+            name="accion"
+            type="radio"
+            value="true"
+          />
+          Vender
+          <input
+            class="formField-input"
+            name="accion"
+            type="radio"
+            value="false"
+          />
+          Comprar
+        </label>
+        <div
+          class="newAdd-formField"
+        >
+          <label
+            class="formField-label"
+          >
+            <span>
+              Precio euros
+            </span>
+            <input
+              class="formField-input"
+              name="price"
+              type="number"
+              value="0"
+            />
+          </label>
+        </div>
+        <label
+          class="formField-label"
+        >
+          Tags
+        </label>
+        <select
+          class="formField-input"
+          multiple=""
+          name="tags"
+        />
+        <label
+          class="formField-label"
+        >
+          Foto
+        </label>
+        <input
+          class="input-photo"
+          name="photo"
+          type="file"
+        />
+        <button
+          class="sc-beqWNU ckoSG"
+          disabled=""
+          type="submit"
+        >
+          Crear
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
