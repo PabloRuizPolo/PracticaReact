@@ -55,6 +55,7 @@ function AdvertsPage() {
         <input
           type="text"
           placeholder="Buscar anuncio..."
+          label="Buscar"
           value={filterName}
           onChange={handleTextFilterChange}
         />
