@@ -9,40 +9,38 @@ import { Suspense } from "react";
 
 function App() {
   return (
-    <Suspense>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/404"
-          element={
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        path="/404"
+        element={
+          <Layout>
+            <RequiereAuth>
+              <div>404</div>
+            </RequiereAuth>
+          </Layout>
+        }
+      />
+      <Route
+        path="/adverts"
+        element={
+          <div>
             <Layout>
               <RequiereAuth>
-                <div>404</div>
+                <Outlet />
               </RequiereAuth>
             </Layout>
-          }
-        />
-        <Route
-          path="/adverts"
-          element={
-            <div>
-              <Layout>
-                <RequiereAuth>
-                  <Outlet />
-                </RequiereAuth>
-              </Layout>
-            </div>
-          }
-        >
-          <Route index element={<AdvertsPage />} />
-          <Route path="newAdd" element={<NewAdvert />} />
-          <Route path=":id" element={<AdvertPage />} />
-        </Route>
+          </div>
+        }
+      >
+        <Route index element={<AdvertsPage />} />
+        <Route path="newAdd" element={<NewAdvert />} />
+        <Route path=":id" element={<AdvertPage />} />
+      </Route>
 
-        <Route path="/" element={<Navigate to={"/adverts"} />} />
-        <Route path="*" element={<Navigate to={"/404"} />} />
-      </Routes>
-    </Suspense>
+      <Route path="/" element={<Navigate to={"/adverts"} />} />
+      <Route path="*" element={<Navigate to={"/404"} />} />
+    </Routes>
   );
 }
 
